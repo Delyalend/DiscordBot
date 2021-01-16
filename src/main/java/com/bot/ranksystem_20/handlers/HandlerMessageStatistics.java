@@ -3,7 +3,6 @@ package com.bot.ranksystem_20.handlers;
 import com.bot.ranksystem_20.displayReports.DisplayReport;
 import com.bot.ranksystem_20.model.UserData;
 import com.bot.ranksystem_20.statisticsCollector.StatisticsCollector;
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -25,11 +24,11 @@ public class HandlerMessageStatistics extends ListenerAdapter {
     private String statisticsChannel;
 
     @Autowired
-    @SneakyThrows
     public HandlerMessageStatistics(JDA jda, DisplayReport displayReport, StatisticsCollector statisticsCollector) {
         this.displayReport = displayReport;
         this.statisticsCollector = statisticsCollector;
         jda.addEventListener(this);
+        System.out.println(jda.getRegisteredListeners());
     }
 
 

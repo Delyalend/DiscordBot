@@ -3,7 +3,6 @@ package com.bot.ranksystem_20.developerConsole;
 import com.bot.ranksystem_20.dao.DaoTitle;
 import com.bot.ranksystem_20.dao.DaoUser;
 import com.bot.ranksystem_20.service.ServiceRankAllocator;
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,7 +26,6 @@ public class DevConsoleMinusPointsToOne extends ListenerAdapter {
 
     private ServiceRankAllocator serviceRankAllocator;
 
-    @SneakyThrows
     @Autowired
     public DevConsoleMinusPointsToOne(DaoUser daoUser, JDA jda, ServiceRankAllocator serviceRankAllocator, DaoTitle daoTitle) {
         this.serviceRankAllocator = serviceRankAllocator;

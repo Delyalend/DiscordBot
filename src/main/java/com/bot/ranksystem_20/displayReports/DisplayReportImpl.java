@@ -4,7 +4,6 @@ import com.bot.ranksystem_20.dao.DaoCard;
 import com.bot.ranksystem_20.dao.DaoUser;
 import com.bot.ranksystem_20.model.Card;
 import com.bot.ranksystem_20.model.UserData;
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,8 +31,7 @@ public class DisplayReportImpl implements DisplayReport {
     Properties properties = new Properties();
 
     @Override
-    @SneakyThrows
-    public void sendReportToDiscord(UserData userData, String titleChannel) {
+    public void sendReportToDiscord(UserData userData, String titleChannel) throws IOException {
         properties.load(new FileInputStream(new File("src\\main\\resources\\titleChannels.properties")));
 
         List<TextChannel> textChannels = jda.getTextChannelsByName(properties.getProperty(titleChannel), false);

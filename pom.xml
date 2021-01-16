@@ -14,14 +14,6 @@
 	<name>ranksystem_2.0</name>
 	<description>Rank System for Discord Server</description>
 
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-
-
 	<repositories>
 		<repository>
 			<id>jcenter</id>
@@ -53,53 +45,53 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<resources>
-		<resource>
-			<directory>src/main/resources</directory>
-			<includes>
-				<include>application.properties</include>
-				<include>db.properties</include>
-				<include>titleChannels.properties</include>
-				<include>titleRoles.properties</include>
-				<include>discordServer.properties</include>
-				<include>**/*.properties</include>
-			</includes>
-		</resource>
-	</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>heroku-sdk-parent</artifactId>
-				<groupId>com.heroku.sdk</groupId>
-				<version>3.0.3</version>
-				<configuration>
-					<appname>ranksystem20</appname>
-					<includetarget>false</includetarget>
-					<includes>
-						<include>${project.build.directory}/${project.build.finalName}.jar</include>
-					</includes>
-					<jdkversion>1.8</jdkversion>
-					<processtypes>
-						<web>java $JAVA_OPTS -jar
-							${project.build.directory}/${project.build.finalName}.jar</web>
-					</processtypes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+<!--	<build>-->
+<!--		<resources>-->
+<!--		<resource>-->
+<!--			<directory>src/main/resources</directory>-->
+<!--			<includes>-->
+<!--				<include>application.properties</include>-->
+<!--				<include>db.properties</include>-->
+<!--				<include>titleChannels.properties</include>-->
+<!--				<include>titleRoles.properties</include>-->
+<!--				<include>discordServer.properties</include>-->
+<!--				<include>**/*.properties</include>-->
+<!--			</includes>-->
+<!--		</resource>-->
+<!--	</resources>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>repackage</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<skip>true</skip>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<artifactId>heroku-sdk-parent</artifactId>-->
+<!--				<groupId>com.heroku.sdk</groupId>-->
+<!--				<version>3.0.3</version>-->
+<!--				<configuration>-->
+<!--					<appname>ranksystem20</appname>-->
+<!--					<includetarget>false</includetarget>-->
+<!--					<includes>-->
+<!--						<include>${project.build.directory}/${project.build.finalName}.jar</include>-->
+<!--					</includes>-->
+<!--					<jdkversion>1.8</jdkversion>-->
+<!--					<processtypes>-->
+<!--						<web>java $JAVA_OPTS -jar-->
+<!--							${project.build.directory}/${project.build.finalName}.jar</web>-->
+<!--					</processtypes>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 
 </project>

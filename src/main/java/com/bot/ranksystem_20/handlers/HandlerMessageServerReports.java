@@ -1,6 +1,5 @@
 package com.bot.ranksystem_20.handlers;
 
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,7 +18,6 @@ public class HandlerMessageServerReports extends ListenerAdapter {
     @Value("${serverReports}")
     private String serverReportsChannel;
 
-    @SneakyThrows
     @Autowired
     public HandlerMessageServerReports(JDA jda) {
         jda.addEventListener(this);

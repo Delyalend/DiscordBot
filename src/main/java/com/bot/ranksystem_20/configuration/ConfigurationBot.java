@@ -1,19 +1,27 @@
 package com.bot.ranksystem_20.configuration;
 
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.security.auth.login.LoginException;
+import java.util.Arrays;
 
 @Configuration
 public class ConfigurationBot {
 
-    @SneakyThrows
     @Bean
-    public JDA jda() {
-        return new JDABuilder("NzM4Njk4MjgzMzAzNTY3NDYy.XyPsYw.aLR5ETvn-YrQIYjk1jj_odP1Z3o")
+    public JDA jda() throws LoginException {
+
+        //AuthorizationConfig config = new AuthorizationConfig("Nzc0MTM1MzIzNTE2OTkzNTQ2.X6TXsw.HLHh8OrZR1PsjFgWaD-u5uOSEBM");
+        ///return new JDAImpl(config);
+
+        return new JDABuilder("Nzc0MTM1MzIzNTE2OTkzNTQ2.X6TXsw.XzrF_pXiHt8l8f84ZYlnngYCqpI")
+                .setEnabledIntents(Arrays.asList(GatewayIntent.values().clone()))
                 .build();
+
     }
 
 }

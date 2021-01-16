@@ -4,8 +4,6 @@ import com.bot.ranksystem_20.dao.DaoTitle;
 import com.bot.ranksystem_20.dao.DaoUser;
 import com.bot.ranksystem_20.model.Title;
 import com.bot.ranksystem_20.model.User;
-import lombok.SneakyThrows;
-import lombok.var;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,6 @@ public class ServiceRankAllocatorImpl implements ServiceRankAllocator {
     private Long discordServerId;
 
     @Autowired
-    @SneakyThrows
     public ServiceRankAllocatorImpl(DaoUser daoUser, DaoTitle daoTitle, JDA jda) {
         this.daoTitle = daoTitle;
         this.daoUser = daoUser;
@@ -115,7 +112,6 @@ public class ServiceRankAllocatorImpl implements ServiceRankAllocator {
         final var guild = jda.getGuildById(discordServerId);
         final var role = guild.getRolesByName(title.getName(), false).get(0);
         guild.addRoleToMember(userId, role).queue();
-
 //        List<Role> rolesFromDiscord = jda.getRoles();
 //
 //

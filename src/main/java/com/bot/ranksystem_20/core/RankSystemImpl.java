@@ -9,6 +9,8 @@ import com.bot.ranksystem_20.statisticsCollector.StatisticsCollector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class RankSystemImpl implements RankSystem {
 
@@ -25,7 +27,7 @@ public class RankSystemImpl implements RankSystem {
     private DisplayReport displayReport;
 
     @Override
-    public void processRequestForUpgradeTitle(Long userId) {
+    public void processRequestForUpgradeTitle(Long userId) throws IOException {
 
         //Прибавить некоторое количество очков юзеру
         pointsCalculator.calculatePoints(userId);
