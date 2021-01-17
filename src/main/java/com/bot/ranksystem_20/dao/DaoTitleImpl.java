@@ -69,7 +69,6 @@ public class DaoTitleImpl implements DaoTitle {
 
     @Override
     public void assignTitleToUser(Long userId, Title title) {
-        System.out.println("сработал ATU!");
         jdbcTemplate.update(UPDATE_USER_DB,title.getId(), true, userId);
     }
 

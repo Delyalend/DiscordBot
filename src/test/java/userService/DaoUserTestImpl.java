@@ -6,7 +6,7 @@ import com.bot.ranksystem_20.model.User;
 
 import java.util.List;
 
-public class DaoUserTest implements DaoUser {
+public class DaoUserTestImpl implements DaoUser {
     @Override
     public List<User> getUsers() {
         return null;

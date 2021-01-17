@@ -18,7 +18,7 @@ public class ConfigurationBot {
         //AuthorizationConfig config = new AuthorizationConfig("Nzc0MTM1MzIzNTE2OTkzNTQ2.X6TXsw.HLHh8OrZR1PsjFgWaD-u5uOSEBM");
         ///return new JDAImpl(config);
 
-        return new JDABuilder("Nzc0MTM1MzIzNTE2OTkzNTQ2.X6TXsw.XzrF_pXiHt8l8f84ZYlnngYCqpI")
+        return new JDABuilder("Nzc0MTM1MzIzNTE2OTkzNTQ2.X6TXsw.-NN-HzCCMWJ5iId8l-eaZDJIokU")
                 .setEnabledIntents(Arrays.asList(GatewayIntent.values().clone()))
                 .build();
 

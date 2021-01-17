@@ -16,4 +16,8 @@ public class User {
     private int points;
     private int lastPointsReceived;
     private boolean isNewTitle;
+
+    public boolean hasRank() {
+        return title != null;
+    }
 }

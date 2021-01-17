@@ -1,7 +1,9 @@
 package com.bot.ranksystem_20.service;
 
-public interface ServiceRankAllocator {
+import com.bot.ranksystem_20.model.User;
 
-    void assignTitle(Long userId);
+public interface RankAllocatorService {
+
+    void assignRank(User user) throws Exception;
 
 }

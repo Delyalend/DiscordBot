@@ -1,9 +1,13 @@
 package com.bot.ranksystem_20.service;
 
-public interface ServiceUser {
+import com.bot.ranksystem_20.model.User;
 
-    boolean userExists(Long userId);
+public interface UserService {
 
-    void createUser(Long userId);
+    boolean exists(Long userId);
+
+    User create(Long userId);
+
+    User getById(Long userId);
 
 }

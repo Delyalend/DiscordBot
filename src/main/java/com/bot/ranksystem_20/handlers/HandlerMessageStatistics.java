@@ -1,6 +1,6 @@
 package com.bot.ranksystem_20.handlers;
 
-import com.bot.ranksystem_20.displayReports.DisplayReport;
+import com.bot.ranksystem_20.displayReports.ReportDisplayer;
 import com.bot.ranksystem_20.model.UserData;
 import com.bot.ranksystem_20.statisticsCollector.StatisticsCollector;
 import net.dv8tion.jda.api.JDA;
@@ -18,14 +18,14 @@ import javax.annotation.Nonnull;
 public class HandlerMessageStatistics extends ListenerAdapter {
 
     private StatisticsCollector statisticsCollector;
-    private DisplayReport displayReport;
+    private ReportDisplayer reportDisplayer;
 
     @Value("${statistics}")
     private String statisticsChannel;
 
     @Autowired
-    public HandlerMessageStatistics(JDA jda, DisplayReport displayReport, StatisticsCollector statisticsCollector) {
-        this.displayReport = displayReport;
+    public HandlerMessageStatistics(JDA jda, ReportDisplayer reportDisplayer, StatisticsCollector statisticsCollector) {
+        this.reportDisplayer = reportDisplayer;
         this.statisticsCollector = statisticsCollector;
         jda.addEventListener(this);
         System.out.println(jda.getRegisteredListeners());
@@ -38,7 +38,7 @@ public class HandlerMessageStatistics extends ListenerAdapter {
             if (event.getMessage().getContentDisplay().equals("/rating")) {
                 try {
                     UserData userData = statisticsCollector.collectStatistics(event.getAuthor().getIdLong());
-                    displayReport.sendReportToDiscord(userData, "statistics");
+                    reportDisplayer.sendReportToDiscord(userData, "statistics");
                 } catch (Exception ex) {
                     event.getTextChannel().sendMessage(event.getMessage().getAuthor().getName() + ", у вас нет звания! [если это не так, обратитесь в администрацию]").submit();
                 }

@@ -1,3 +1,5 @@
+package rankService;
+
 import com.bot.ranksystem_20.dao.DaoTitle;
 import com.bot.ranksystem_20.model.Title;
 

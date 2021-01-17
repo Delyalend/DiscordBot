@@ -5,7 +5,7 @@ import com.bot.ranksystem_20.model.UserData;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public interface DisplayReport {
+public interface ReportDisplayer {
 
     void sendReportToDiscord(UserData userData,String titleChannel) throws IOException;
 
