@@ -1,0 +1,4 @@
+
+@RunWith
+public class UserServiceTest {
+}
