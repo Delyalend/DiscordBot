@@ -1,40 +1,80 @@
 package userService;
 
 import com.bot.ranksystem_20.dao.DaoUser;
+import com.bot.ranksystem_20.model.Title;
 import com.bot.ranksystem_20.model.User;
+import com.bot.ranksystem_20.service.UserService;
 import com.bot.ranksystem_20.service.UserServiceImpl;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
+    @Mock
+    private DaoUser daoUser;
 
-    DaoUser daoUserTest = new DaoUserTestImpl();
-    UserServiceImpl userService = new UserServiceImpl(daoUserTest);
+    UserService userService;
 
 
-    @Test
-    @DisplayName("╯°□°）╯")
-    public void getById() {
-        User user = userService.getById(0L);
-
-        assertNotNull(user, "User is null");
-        assertEquals(user.getId(), 0L, "Found the wrong user");
+    @ParameterizedTest
+    @CsvSource({"1,,10,15,true", "2,,20,25,false",
+            "3,,30,35,true", "4,,40,45,false",
+            "5,,50,55,true", "6,,60,65,false"})
+    public void getById(@AggregateWith(UserAggregator.class) User user) {
+        when(daoUser.getUserById(user.getId())).thenReturn(user);
+        userService = new UserServiceImpl(daoUser);
+        User userFromService = userService.getById(user.getId());
+        assertNotNull(userFromService, "User is null");
+        assertEquals(userFromService.getId(), user.getId(), "Found the wrong user");
     }
 
-    @Test
-    public void exists() {
-        boolean exists = userService.exists(0L);
+    @ParameterizedTest
+    @CsvSource({"1,,10,15,true", "2,,20,25,false",
+            "3,,30,35,true", "4,,40,45,false",
+            "5,,50,55,true", "6,,60,65,false"})
+    public void exists(@AggregateWith(UserAggregator.class) User user) {
+        when(daoUser.getUserById(user.getId())).thenReturn(user);
+        userService = new UserServiceImpl(daoUser);
+        boolean exists = userService.exists(user.getId());
         assertTrue(exists, "User not found");
     }
 
-    @Test
-    public void create() {
-        User user = userService.create(0L);
-        assertNotNull(user, "User not created");
-        assertEquals(user.getId(), 0L, "Returned the wrong user");
+    @ParameterizedTest
+    @CsvSource({"1,,10,15,true", "2,,20,25,false",
+            "3,,30,35,true", "4,,40,45,false",
+            "5,,50,55,true", "6,,60,65,false"})
+    public void create(@AggregateWith(UserAggregator.class) User user) {
+        when(daoUser.getUserById(user.getId())).thenReturn(user);
+        userService = new UserServiceImpl(daoUser);
+        User userFromService = userService.create(user.getId());
+        assertNotNull(userFromService, "User not created");
+        assertEquals(userFromService.getId(), user.getId(), "Returned the wrong user");
+    }
+
+    static class UserAggregator implements ArgumentsAggregator {
+        @Override
+        public Object aggregateArguments(ArgumentsAccessor accessor, ParameterContext context)
+                throws ArgumentsAggregationException {
+            return new User(accessor.getLong(0),
+                    accessor.get(1, Title.class),
+                    accessor.getInteger(2),
+                    accessor.getInteger(3),
+                    accessor.getBoolean(4));
+        }
     }
 
 }
