@@ -19,9 +19,7 @@ import java.util.Objects;
 @PropertySource("classpath:discordServer.properties")
 public class RankAllocatorServiceImpl implements RankAllocatorService {
 
-    private DaoUser daoUser;
     private DaoTitle daoTitle;
-    private JDA jda;
     private DiscordRankService discordRankService;
     private RankService rankService;
 
@@ -29,19 +27,13 @@ public class RankAllocatorServiceImpl implements RankAllocatorService {
     private Long discordServerId;
 
     @Autowired
-    public RankAllocatorServiceImpl(DaoUser daoUser,
-                                    DaoTitle daoTitle,
-                                    JDA jda,
+    public RankAllocatorServiceImpl(DaoTitle daoTitle,
                                     DiscordRankService discordRankService,
                                     RankService rankService) {
         this.daoTitle = daoTitle;
-        this.daoUser = daoUser;
-        this.jda = jda;
         this.rankService = rankService;
         this.discordRankService = discordRankService;
     }
-
-
 
     @Override
     public void assignRank(User user) throws Exception {
@@ -59,7 +51,6 @@ public class RankAllocatorServiceImpl implements RankAllocatorService {
                 //Если доступное звание не равно текущему, то назначим новое звание
                 if (!availableTitle.getName().equals(user.getTitle().getName())) {
                     daoTitle.assignTitleToUser(user.getId(), availableTitle);
-
                     discordRankService.clearRolesToUser(user.getId());
                     discordRankService.addRoleToUser(user.getId(), availableTitle);
                 } else {
@@ -77,31 +68,4 @@ public class RankAllocatorServiceImpl implements RankAllocatorService {
     private boolean userHasLastRank(User user) {
         return user.getPoints() < daoTitle.getLastTitle().getPoints();
     }
-
-//    private void addCustomRoleWithPreDeleteRoles(Long userId, List<Title> titleFromDb, Title title) {
-//        List<Role> titlesFromDiscord = jda.getRoles();
-//        titlesFromDiscord.forEach(titleDiscord -> {
-//            titleFromDb.forEach(titleDb -> {
-//                if (titleDb.getName().equals(titleDiscord.getName())) {
-//                    Objects.requireNonNull(jda.getGuildById(discordServerId)).removeRoleFromMember(userId, titleDiscord).queue(success -> {
-//                        discordRankService.addRoleToUser(userId, title);
-//                    });
-//                }
-//            });
-//        });
-//    }
-
-    //Удалим все кастомные роли у юзера
-//    private void deleteCustomRolesFromUser(Long userId, List<Title> titleFromDb) {
-//        List<Role> titlesFromDiscord = jda.getRoles();
-//        titlesFromDiscord.forEach(titleDiscord -> {
-//            titleFromDb.forEach(titleDb -> {
-//                if (titleDb.getName().equals(titleDiscord.getName())) {
-//                    Objects.requireNonNull(jda.getGuildById(discordServerId)).removeRoleFromMember(userId, titleDiscord).queue();
-//                }
-//            });
-//        });
-//    }
-
-
 }

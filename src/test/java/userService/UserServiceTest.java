@@ -15,6 +15,7 @@ import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -27,7 +28,8 @@ public class UserServiceTest {
     @Mock
     private DaoUser daoUser;
 
-    UserService userService;
+    @InjectMocks
+    private UserServiceImpl userServiceImpl;
 
 
     @ParameterizedTest
@@ -36,8 +38,7 @@ public class UserServiceTest {
             "5,,50,55,true", "6,,60,65,false"})
     public void getById(@AggregateWith(UserAggregator.class) User user) {
         when(daoUser.getUserById(user.getId())).thenReturn(user);
-        userService = new UserServiceImpl(daoUser);
-        User userFromService = userService.getById(user.getId());
+        User userFromService = userServiceImpl.getById(user.getId());
         assertNotNull(userFromService, "User is null");
         assertEquals(userFromService.getId(), user.getId(), "Found the wrong user");
     }
@@ -48,8 +49,7 @@ public class UserServiceTest {
             "5,,50,55,true", "6,,60,65,false"})
     public void exists(@AggregateWith(UserAggregator.class) User user) {
         when(daoUser.getUserById(user.getId())).thenReturn(user);
-        userService = new UserServiceImpl(daoUser);
-        boolean exists = userService.exists(user.getId());
+        boolean exists = userServiceImpl.exists(user.getId());
         assertTrue(exists, "User not found");
     }
 
@@ -59,8 +59,7 @@ public class UserServiceTest {
             "5,,50,55,true", "6,,60,65,false"})
     public void create(@AggregateWith(UserAggregator.class) User user) {
         when(daoUser.getUserById(user.getId())).thenReturn(user);
-        userService = new UserServiceImpl(daoUser);
-        User userFromService = userService.create(user.getId());
+        User userFromService = userServiceImpl.create(user.getId());
         assertNotNull(userFromService, "User not created");
         assertEquals(userFromService.getId(), user.getId(), "Returned the wrong user");
     }
